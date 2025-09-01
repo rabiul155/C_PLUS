@@ -7,7 +7,8 @@ using namespace std;
 
 int main(){
 
-priority_queue<int> s;
+priority_queue<int> s; // order 10, 5, 3;
+// priority_queue<int, vector<int>, greater<int>> s; // order 3, 5, 10
 
 s.push(5);
 s.push(10);
