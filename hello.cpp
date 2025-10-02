@@ -10,7 +10,7 @@ int main(){
   int n ;
   cin >> n ;
 
-  cout <<"Your number is 0"<< n << endl;
+  cout <<"Your number is "<< n << endl;
   return 0;
 }
 
