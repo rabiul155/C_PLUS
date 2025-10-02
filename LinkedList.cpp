@@ -61,7 +61,20 @@ void deleteAtHead (node* &head){
   delete deleteNode;
 }
 
-void deleteNode (node* head , int val){
+void deleteNode (node* &head , int val){
+
+
+  // if list is empty
+  if(head == NULL){
+    return;
+  }
+
+  // if only one node
+  if(head->next == NULL){
+    deleteAtHead(head);
+  }
+
+
   node* temp = head;
 
   while(temp->next->data != val){
