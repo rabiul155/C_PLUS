@@ -1,19 +1,13 @@
 #include<bits/stdc++.h>
-
 using namespace std;
-
 class node {
   public : 
   int data;
   node* next;
-
   node(int val){
-
     data = val;
     next = NULL;
-
   }
-
 };
 
 void insetAtHead (node* &head, int val){
@@ -48,11 +42,11 @@ void display(node* head){
   cout << endl; 
 }
 
-bool findValue (node* head , int key){
+bool findValue (node* head , int val){
   node* temp = head;
 
   while(temp != NULL){
-    if(temp->data == key){
+    if(temp->data == val){
       return true;
     }
     temp = temp->next;
@@ -60,24 +54,45 @@ bool findValue (node* head , int key){
   return false;
 }
 
+
+void deleteAtHead (node* &head){
+  node* deleteNode = head;
+  head = head->next;
+  delete deleteNode;
+}
+
+void deleteNode (node* head , int val){
+  node* temp = head;
+
+  while(temp->next->data != val){
+    temp = temp->next;
+  }
+  node * todelete = temp->next;
+  temp->next = temp->next->next;
+  delete todelete;
+
+}
+
 int main (){
-
   node* head = NULL;
-
   insertAtTail(head,1);
   insertAtTail(head,2);
   insertAtTail(head,3);
+  insertAtTail(head,4);
+  insertAtTail(head,5);
 
   display(head);
-  insetAtHead(head,4);
-
+  insetAtHead(head,0);
   display(head);
 
   bool find1 = findValue(head,3);
+  bool find2 = findValue(head,10);
+  cout << "Find " <<  find1 << " " << find2 << endl;
 
-  bool find2 = findValue(head,1);
+  deleteNode(head, 3);
+  deleteAtHead(head);
 
-  cout << find1 << " " << find2 << endl;
+  display(head);
 
   return 0;
 }
