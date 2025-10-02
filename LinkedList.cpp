@@ -16,6 +16,12 @@ class node {
 
 };
 
+void insetAtHead (node* &head, int val){
+  node* n = new node(val);
+  n->next = head;
+  head = n;
+}
+
 void insertAtTail (node* &head , int val){
   node* n = new node(val); // here n is the address of new node. node created in heap and its address stored in stack.
 
@@ -39,10 +45,19 @@ void display(node* head){
       cout << temp->data << " ";
       temp = temp->next;
   }
+  cout << endl; 
+}
 
-  cout << endl;
-  
-  
+bool findValue (node* head , int key){
+  node* temp = head;
+
+  while(temp != NULL){
+    if(temp->data == key){
+      return true;
+    }
+    temp = temp->next;
+  }
+  return false;
 }
 
 int main (){
@@ -52,8 +67,17 @@ int main (){
   insertAtTail(head,1);
   insertAtTail(head,2);
   insertAtTail(head,3);
+
+  display(head);
+  insetAtHead(head,4);
+
   display(head);
 
+  bool find1 = findValue(head,3);
+
+  bool find2 = findValue(head,1);
+
+  cout << find1 << " " << find2 << endl;
 
   return 0;
 }
