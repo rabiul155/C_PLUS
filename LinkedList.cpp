@@ -86,6 +86,25 @@ void deleteNode (node* &head , int val){
 
 }
 
+
+node* reverseList (node* head){
+
+  node* prev = NULL;
+  node* curr = head;
+  node* next;
+
+
+  while(curr != NULL){
+    next = curr->next;
+    curr->next = prev;
+    prev = curr;
+    curr = next;
+  }
+
+  return prev;
+}
+
+
 int main (){
   node* head = NULL;
   insertAtTail(head,1);
@@ -94,18 +113,22 @@ int main (){
   insertAtTail(head,4);
   insertAtTail(head,5);
 
-  display(head);
-  insetAtHead(head,0);
+  // display(head);
+  // insetAtHead(head,0);
+  // display(head);
+
+  // bool find1 = findValue(head,3);
+  // bool find2 = findValue(head,10);
+  // cout << "Find " <<  find1 << " " << find2 << endl;
+
+  // deleteNode(head, 3);
+  // deleteAtHead(head);
+
   display(head);
 
-  bool find1 = findValue(head,3);
-  bool find2 = findValue(head,10);
-  cout << "Find " <<  find1 << " " << find2 << endl;
-
-  deleteNode(head, 3);
-  deleteAtHead(head);
-
-  display(head);
+  cout << "Display after reverse\n";
+ node* newHead = reverseList(head);
+  display(newHead);
 
   return 0;
 }
