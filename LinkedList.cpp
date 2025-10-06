@@ -54,7 +54,6 @@ bool findValue (node* head , int val){
   return false;
 }
 
-
 void deleteAtHead (node* &head){
   node* deleteNode = head;
   head = head->next;
@@ -85,7 +84,6 @@ void deleteNode (node* &head , int val){
   delete todelete;
 
 }
-
 
 node* reverseList (node* head){
 
@@ -127,7 +125,7 @@ int main (){
   display(head);
 
   cout << "Display after reverse\n";
- node* newHead = reverseList(head);
+  node* newHead = reverseList(head);
   display(newHead);
 
   return 0;
