@@ -124,15 +124,15 @@ node* reverseKNode(node* head, int k) {
   return prev;
 }
 
-void makeCycle(node* head, int k){
+void makeCycle(node* head, int k) {
   node* temp = head;
-  node* nodeAddess ;
+  node* nodeAddess;
 
   int count = 1;
 
-  while(temp->next !=NULL){
-     
-    if(count == k){
+  while (temp->next != NULL) {
+
+    if (count == k) {
       nodeAddess = temp;
     }
     temp = temp->next;
@@ -141,19 +141,58 @@ void makeCycle(node* head, int k){
   temp->next = nodeAddess;
 }
 
-bool detectCycle(node* head){
+bool detectCycle(node* head) {
   node* slow = head;
   node* fast = head;
 
-  while(fast != NULL && fast->next != NULL){
+  while (fast != NULL && fast->next != NULL) {
     slow = slow->next;
     fast = fast->next->next;
 
-    if(fast == slow){
+    if (fast == slow) {
       return true;
     }
   }
   return false;
+}
+
+void removeCycle(node* head) {
+  node* slow = head;
+  node* fast = head;
+
+
+  // detected true 
+  // do{
+  //   slow = slow->next;
+  //   fast = fast->next->next;
+
+  // }while(fast != slow);
+
+
+  // detected may be true or false
+  while (fast != NULL && fast->next != NULL) {
+    fast = fast->next->next;
+    slow = slow->next;
+
+    if (fast == slow) {
+      break;
+    }
+  }
+
+  if (fast == NULL || fast->next == NULL) {
+    return;
+  }
+
+  fast = head;
+
+  while (fast->next != slow->next) {
+    fast = fast->next;
+    slow = slow->next;
+
+  }
+  slow->next = NULL;
+
+
 }
 
 int main() {
@@ -167,7 +206,7 @@ int main() {
   insertAtTail(head, 7);
   insertAtTail(head, 8);
   insertAtTail(head, 9);
- 
+
 
 
   // display(head);
@@ -190,9 +229,13 @@ int main() {
   // node* newHead = reverseKNode(head, 3);
   // display(newHead);
 
-  // makeCycle(head, 4);
+  makeCycle(head, 4);
 
   cout << detectCycle(head) << endl;
+
+  removeCycle(head);
+
+  display(head);
 
   return 0;
 }
