@@ -53,6 +53,38 @@ void display(node* head){
   cout << "NULL" << endl;
 }
 
+void deleteHead(node* &head){
+  node* temp = head;
+
+  head = head->next;
+  head->prev = NULL;
+  
+  delete temp;
+}
+
+void deleteNode(node* &head , int val){
+  node* temp = head;
+
+
+  while(temp != NULL && temp->data != val){
+    temp= temp->next;
+  }
+
+  if(temp == head){
+    deleteHead(head);
+    return;
+  }
+
+  
+  temp->prev->next = temp->next;
+  if(temp->next){
+    temp->next->prev = temp->prev;
+  }
+
+  delete temp;
+
+}
+
 int main() {
   node* head = NULL;
   insertAtTail(head,1);
@@ -62,6 +94,12 @@ int main() {
   insertAtTail(head,5);
   insertAtHead(head, 0);
 
+  display(head);
+ 
+  deleteNode(head, 3);
+  display(head);
+  deleteHead(head);
+  
   display(head);
 
 
