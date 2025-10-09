@@ -14,15 +14,6 @@ public:
     }
 };
 
-// 🔹 Inorder Traversal (Left → Root → Right)
-void inorder(Node* root) {
-    if (root == nullptr) return;
-
-    inorder(root->left);
-    cout << root->data << " ";
-    inorder(root->right);
-}
-
 // 🔹 Preorder Traversal (Root → Left → Right)
 void preorder(Node* root) {
     if (root == nullptr) return;
@@ -30,6 +21,15 @@ void preorder(Node* root) {
     cout << root->data << " ";
     preorder(root->left);
     preorder(root->right);
+}
+
+// 🔹 Inorder Traversal (Left → Root → Right)
+void inorder(Node* root) {
+    if (root == nullptr) return;
+
+    inorder(root->left);
+    cout << root->data << " ";
+    inorder(root->right);
 }
 
 // 🔹 Postorder Traversal (Left → Right → Root)
