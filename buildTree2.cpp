@@ -17,7 +17,6 @@ class Node {
 // 🔹 Inorder Traversal (Left → Root → Right)
 void inorderPrint(Node* root) {
     if (root == nullptr) return;
-
     inorderPrint(root->left);
     cout << root->data << " ";
     inorderPrint(root->right);
@@ -33,15 +32,15 @@ int search (int inorder[], int start, int end, int curr){
 }
 
 
-Node* buildTree (int preorder[], int inorder[], int start, int end){
-  static int idx = 0;
+Node* buildTree (int postorder[], int inorder[], int start, int end){
+  static int idx = 4;
 
-  if(start > end){
+  if(end < start){
     return nullptr;
   }
 
-  int curr = preorder[idx];
-  idx++;
+  int curr = postorder[idx];
+  idx--;
   Node* node = new Node(curr);
 
   if(start == end){
@@ -50,23 +49,27 @@ Node* buildTree (int preorder[], int inorder[], int start, int end){
 
   int pos = search(inorder , start, end, curr);
 
-  node->left = buildTree(preorder , inorder, start, pos-1);
-  node->right = buildTree(preorder ,inorder, pos+1, end);
+  node->right = buildTree(postorder, inorder, pos+1, end);
+  node->left = buildTree(postorder , inorder , start, pos-1);
 
   return node;
 
 }
 
-// Build tree form preorder and inorder traversal array
+                                                                           
 
-int main(){
+// Build tree form postorder and inorder traversal array
 
-  int preorder[] = {1,2,4,3,5};
+int main(){      
+  
+  int postorder[] = {4,2,5,3,1};
   int inorder[] = {4,2,1,5,3};
 
-  Node* head = buildTree(preorder, inorder , 0, 4);
+  Node* head = buildTree(postorder, inorder, 0, 4);
 
   inorderPrint(head);
+
+  
 
   return 0;
 }
