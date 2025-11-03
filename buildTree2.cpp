@@ -65,9 +65,9 @@ int main(){
   int postorder[] = {4,2,5,3,1};
   int inorder[] = {4,2,1,5,3};
 
-  Node* head = buildTree(postorder, inorder, 0, 4);
+  Node* root = buildTree(postorder, inorder, 0, 4);
 
-  inorderPrint(head);
+  inorderPrint(root);
 
   
 
