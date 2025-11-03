@@ -42,12 +42,44 @@ void levelOrderTraverse(Node* root){
         q.push(nullptr);
       }
     }
+  }
 
+  cout << endl;
+}
 
+int sumAtKLevel (Node* root, int k){
+
+  if(root == nullptr){
+    return 0;
+  }
+  int sum = 0;
+  int level = 0;
+  queue<Node*> q;
+  q.push(root);
+  q.push(nullptr);
+
+  while(!q.empty()){
+    Node* node = q.front();
+    q.pop();
+
+    if(node != nullptr){
+      if(level == k){
+        sum+= node->data;
+      }
+      if(node->left) q.push(node->left);
+      if(node->right) q.push(node->right);
+    }else{
+      if(!q.empty()){
+        level++;
+        q.push(nullptr);
+      }
+    }
   }
 
 
+  return sum;
 }
+
 
 int main() {
     // Example Tree:
@@ -66,6 +98,8 @@ int main() {
     root->right->right = new Node(7);
 
     levelOrderTraverse(root);
+    cout << sumAtKLevel(root, 2);
+
 
     return 0;
 }
