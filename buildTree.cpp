@@ -41,6 +41,7 @@ Node* buildTree (int preorder[], int inorder[], int start, int end){
   if(start > end){
     return nullptr;
   }
+  
   int curr = preorder[idx];
   idx++;
   Node* node = new Node(curr);
