@@ -15,7 +15,6 @@ public:
 };
 
 // Count node and sum node
-
 int countNode(Node* root){
   if(root == nullptr){
     return 0;
@@ -23,11 +22,37 @@ int countNode(Node* root){
   return countNode(root->left) + countNode(root->right) + 1; // root;
 }
 
+// Sum of all nodes
 int sumNode(Node* root){
   if(root == nullptr){
     return 0;
   }
   return sumNode(root->left) + sumNode(root->right) + root->data; // root;
+}
+
+// Height of the tree
+int heightTree (Node* root){
+  if(root == NULL){
+    return 0;
+  }
+  return max(heightTree(root->left), heightTree(root->right)) + 1;
+}
+
+// calculate diameter of the tree 
+int calculateDiameter (Node* root){
+  if(root == NULL){
+    return 0;
+
+    int lHeight = heightTree(root->left);
+    int rHeight = heightTree(root->right);
+    int diameter = lHeight+rHeight+1;
+
+    int lDiameter = calculateDiameter(root->left);
+    int rDiameter = calculateDiameter(root->right);
+
+    return max(diameter, max(lDiameter, rDiameter));
+
+  }
 }
 
 
@@ -48,8 +73,10 @@ int main() {
     root->right->left = new Node(6);
     root->right->right = new Node(7);
 
-    cout << countNode(root) << endl;
-    cout << sumNode(root) << endl;
+    cout << "Count Node : " << countNode(root) << endl;
+    cout << "Sum node : " << sumNode(root) << endl;
+    cout << "Height : " << heightTree(root) << endl;
+    cout << "Diameter : " << calculateDiameter(root) << endl;
 
     return 0;
 }
