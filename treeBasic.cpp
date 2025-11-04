@@ -57,7 +57,6 @@ int calculateDiameter(Node* root){
 // Calculate diameter optimize version. Visual representation "/\". Time complexity O(n)
 int calculateDiameter2(Node* root, int* height) {
   if (root == NULL) {
-      *height = 0;
       return 0;
   }
 
@@ -171,4 +170,4 @@ int main() {
 
     return 0;
 }
-            
+          
