@@ -38,7 +38,7 @@ int heightTree (Node* root){
   return max(heightTree(root->left), heightTree(root->right)) + 1;
 }
 
-// calculate diameter of the tree . Visual representation "/\"
+// calculate diameter of the tree . Visual representation "/\" Time complexity O(n2)
 int calculateDiameter(Node* root){
   if(root == NULL){
     return 0;
@@ -54,7 +54,7 @@ int calculateDiameter(Node* root){
   return max(diameter, max(lDiameter, rDiameter));
 }
 
-// Calculate diameter optimize version. Visual representation "/\"
+// Calculate diameter optimize version. Visual representation "/\". Time complexity O(n)
 int calculateDiameter2(Node* root, int* height) {
   if (root == NULL) {
       *height = 0;
@@ -100,6 +100,41 @@ void printTree (Node* root){
   printTree(root->right);
 }
 
+// Check the binary tree is balanced or not. Time complexity O(n2)
+bool isBalanced(Node* root){
+  if(root== NULL){
+    return true;
+  }
+
+  if(!isBalanced(root->left)) return false;
+  if(!isBalanced(root->right)) return false;
+
+  int lh = heightTree(root->left);
+  int rh = heightTree(root->right);
+
+
+  if(abs(lh-rh)>1) return false;
+}
+
+// Check the binary tree is balanced or not. Time complexity O(n)
+bool isBalanced2(Node* root, int* h){
+  if(root== NULL){
+    return true;
+  }
+
+  int lh = 0, rh = 0;
+
+  if(!isBalanced2(root->left, &lh)) return false;
+  if(!isBalanced2(root->right, &rh)) return false;
+
+  *h = max(lh, rh)+1;
+
+  if(abs(lh-rh)<1) return false;
+
+  return true;
+
+}
+
 
 
 int main() {
@@ -118,17 +153,22 @@ int main() {
     root->right->left = new Node(6);
     root->right->right = new Node(7);
 
-    cout << "Count Node : " << countNode(root) << endl;
-    cout << "Sum node : " << sumNode(root) << endl;
-    cout << "Height : " << heightTree(root) << endl;
-    cout << "Diameter : " << calculateDiameter(root) << endl;
+    // cout << "Count Node : " << countNode(root) << endl;
+    // cout << "Sum node : " << sumNode(root) << endl;
+    // cout << "Height : " << heightTree(root) << endl;
+    // cout << "Diameter : " << calculateDiameter(root) << endl;
 
-    int height = 0;
-    cout << "Diameter2 : " << calculateDiameter2(root, &height) << endl;
+    // int height = 0;
+    // cout << "Diameter2 : " << calculateDiameter2(root, &height) << endl;
 
-    cout << "Sum Replacement : " << sumReplacement(root) << endl;
-    printTree(root);
+    // cout << "Sum Replacement : " << sumReplacement(root) << endl;
+    // printTree(root);
 
+    cout << "Balance : " << isBalanced(root) << endl;
+
+    int h = 0;
+    cout << "Balance2 : " << isBalanced2(root, &h) << endl;
 
     return 0;
 }
+            
