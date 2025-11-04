@@ -38,7 +38,7 @@ int heightTree (Node* root){
   return max(heightTree(root->left), heightTree(root->right)) + 1;
 }
 
-// calculate diameter of the tree 
+// calculate diameter of the tree . Visual representation "/\"
 int calculateDiameter(Node* root){
   if(root == NULL){
     return 0;
@@ -54,7 +54,7 @@ int calculateDiameter(Node* root){
   return max(diameter, max(lDiameter, rDiameter));
 }
 
-// Calculate diameter optimize version
+// Calculate diameter optimize version. Visual representation "/\"
 int calculateDiameter2(Node* root, int* height) {
   if (root == NULL) {
       *height = 0;
