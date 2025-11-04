@@ -13,8 +13,8 @@ public:
         right = nullptr;
     }
 };
-
-// Count node 
+       
+// Count node of tree
 int countNode(Node* root){
   if(root == nullptr){
     return 0;
