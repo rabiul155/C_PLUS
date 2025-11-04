@@ -42,17 +42,18 @@ int heightTree (Node* root){
 int calculateDiameter (Node* root){
   if(root == NULL){
     return 0;
-
-    int lHeight = heightTree(root->left);
-    int rHeight = heightTree(root->right);
-    int diameter = lHeight+rHeight+1;
-
-    int lDiameter = calculateDiameter(root->left);
-    int rDiameter = calculateDiameter(root->right);
-
-    return max(diameter, max(lDiameter, rDiameter));
-
   }
+
+  int lHeight = heightTree(root->left);
+  int rHeight = heightTree(root->right);
+  int diameter = lHeight+rHeight+1;
+
+  int lDiameter = calculateDiameter(root->left);
+  int rDiameter = calculateDiameter(root->right);
+
+  return max(diameter, max(lDiameter, rDiameter));
+
+  
 }
 
 
