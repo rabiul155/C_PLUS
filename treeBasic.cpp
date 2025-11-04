@@ -14,7 +14,7 @@ public:
     }
 };
 
-// Count node and sum node
+// Count node 
 int countNode(Node* root){
   if(root == nullptr){
     return 0;
@@ -39,7 +39,7 @@ int heightTree (Node* root){
 }
 
 // calculate diameter of the tree 
-int calculateDiameter (Node* root){
+int calculateDiameter(Node* root){
   if(root == NULL){
     return 0;
   }
@@ -52,8 +52,52 @@ int calculateDiameter (Node* root){
   int rDiameter = calculateDiameter(root->right);
 
   return max(diameter, max(lDiameter, rDiameter));
+}
 
-  
+// Calculate diameter optimize version
+int calculateDiameter2(Node* root, int* height) {
+  if (root == NULL) {
+      *height = 0;
+      return 0;
+  }
+
+  int leftHeight = 0, rightHeight = 0;
+
+  int leftDiameter = calculateDiameter2(root->left, &leftHeight);
+  int rightDiameter = calculateDiameter2(root->right, &rightHeight);
+
+  *height = max(leftHeight, rightHeight) + 1;
+
+  int currentDiameter = leftHeight + rightHeight + 1;
+
+  return max({currentDiameter, leftDiameter, rightDiameter});
+}
+
+// Sum replacement of binary tree 
+int sumReplacement(Node* root){
+
+  if(root == NULL){
+    return 0;
+  }
+
+  int lSum = sumReplacement(root->left);
+  int rSum = sumReplacement(root->right);
+
+  root->data = lSum+rSum+root->data;
+
+  return root->data;
+}
+
+
+// Preorder traversal print
+void printTree (Node* root){
+  if(root == NULL){
+    return;
+  }
+
+  cout << root->data << " ";
+  printTree(root->left);
+  printTree(root->right);
 }
 
 
@@ -78,6 +122,13 @@ int main() {
     cout << "Sum node : " << sumNode(root) << endl;
     cout << "Height : " << heightTree(root) << endl;
     cout << "Diameter : " << calculateDiameter(root) << endl;
+
+    int height = 0;
+    cout << "Diameter2 : " << calculateDiameter2(root, &height) << endl;
+
+    cout << "Sum Replacement : " << sumReplacement(root) << endl;
+    printTree(root);
+
 
     return 0;
 }
