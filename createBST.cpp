@@ -28,7 +28,7 @@ Node* insertBST(Node* root , int val){
 
   return root;
 }
-
+// Search in BST
 Node *searchInBST (Node* root , int val){
   if(root==NULL){
     return NULL;
@@ -51,7 +51,7 @@ Node* inorderSuccess(Node* root){
   }
   return curr;
 }
-
+// Delete node in BST
 Node* deleteNodeBST (Node* root , int val){
 
   if(val < root->data){
