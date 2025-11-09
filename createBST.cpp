@@ -14,6 +14,8 @@ public:
     }
 };
 
+
+// Insert value in BST (value inserted in leaf node);
 Node* insertBST(Node* root , int val){
   if(root == NULL){
     return new Node(val);
@@ -25,7 +27,57 @@ Node* insertBST(Node* root , int val){
   }
 
   return root;
-  
+}
+
+Node *searchInBST (Node* root , int val){
+  if(root==NULL){
+    return NULL;
+  }
+
+  if(root->data == val){
+    return root;
+  }
+
+  if( val < root->data ){
+    return searchInBST(root->left , val);
+  }
+   return searchInBST(root->right , val);
+}
+
+Node* inorderSuccess(Node* root){
+  Node* curr = root;
+  while(curr && curr->left != NULL){
+    curr = curr->left;
+  }
+  return curr;
+}
+
+Node* deleteNodeBST (Node* root , int val){
+
+  if(val < root->data){
+    root->left =  deleteNodeBST(root->left , val);
+  }else if(val > root->data){
+    root->right = deleteNodeBST(root->right , val);
+  }else{
+    if(root->left == NULL){
+      Node* temp = root->right;
+      delete root;
+      return temp;
+    }else if(root->right == NULL){
+      Node* temp = root->left;
+      delete root;
+      return temp;
+    }else{
+
+      Node* temp = inorderSuccess(root->right);
+      root->data = temp->data;
+      root->right = deleteNodeBST(root->right, temp->data);
+
+    }
+
+    return root;
+
+  }
 }
 
 void inorder (Node* root){
@@ -59,7 +111,14 @@ int main(){
   insertBST(root, 7);
 
   inorder(root);
+  cout << endl;
 
+  //  Node* node = searchInBST(root, 4);
+  //  cout<< node->data;
+
+  deleteNodeBST(root,7);
+  inorder(root);
 
   return 0;
 }
+
