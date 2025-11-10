@@ -14,21 +14,6 @@ public:
     }
 };
        
-// Count node of tree
-int countNode(Node* root){
-  if(root == nullptr){
-    return 0;
-  }
-  return countNode(root->left) + countNode(root->right) + 1; // root;
-}
-
-// Sum of all nodes
-int sumNode(Node* root){
-  if(root == nullptr){
-    return 0;
-  }
-  return sumNode(root->left) + sumNode(root->right) + root->data; // root;
-}
 
 // Height of the tree
 int heightTree (Node* root){
@@ -36,21 +21,6 @@ int heightTree (Node* root){
     return 0;
   }
   return max(heightTree(root->left), heightTree(root->right)) + 1;
-}
-
-// Sum replacement of binary tree 
-int sumReplacement(Node* root){
-
-  if(root == NULL){
-    return 0;
-  }
-
-  int lSum = sumReplacement(root->left);
-  int rSum = sumReplacement(root->right);
-
-  root->data = lSum+rSum+root->data;
-
-  return root->data;
 }
 
 
@@ -64,6 +34,43 @@ void printTree (Node* root){
   printTree(root->left);
   printTree(root->right);
 }
+
+// Check the binary tree is balanced or not. Time complexity O(n2)
+bool isBalanced(Node* root){
+  if(root== NULL){
+    return true;
+  }
+
+  if(!isBalanced(root->left)) return false;
+  if(!isBalanced(root->right)) return false;
+
+  int lh = heightTree(root->left);
+  int rh = heightTree(root->right);
+
+
+  if(abs(lh-rh)>1) return false;
+}
+
+// Check the binary tree is balanced or not. Time complexity O(n)
+bool isBalanced2(Node* root, int* h){
+  if(root== NULL){
+    return true;
+  }
+
+  int lh = 0, rh = 0;
+
+  if(!isBalanced2(root->left, &lh)) return false;
+  if(!isBalanced2(root->right, &rh)) return false;
+
+  *h = max(lh, rh)+1;
+
+  if(abs(lh-rh)<1) return false;
+
+  return true;
+
+}
+
+
 
 int main() {
     // Example Tree:
@@ -81,12 +88,12 @@ int main() {
     root->right->left = new Node(6);
     root->right->right = new Node(7);
 
-    cout << "Count Node : " << countNode(root) << endl;
-    cout << "Sum node : " << sumNode(root) << endl;
-    cout << "Height : " << heightTree(root) << endl;
 
-    cout << "Sum Replacement : " << sumReplacement(root) << endl;
-    printTree(root);
+
+    cout << "Balance : " << isBalanced(root) << endl;
+
+    int h = 0;
+    cout << "Balance2 : " << isBalanced2(root, &h) << endl;
 
     return 0;
 }
