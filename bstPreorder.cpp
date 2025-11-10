@@ -18,18 +18,18 @@ Node* buildBST (int preorder[], int &index, int min, int max, int n){
   if(index >= n){
     return NULL;
   }
+    // Here preorder[index] means the value 
   int key = preorder[index];
   Node* root = NULL;
   if(key > min && key < max){
-    // Here preorder[index] means the value 
+  
     root = new Node(key);
     index++;
-    if(index < n){
-      // Here 2 call but 1 call is run because condition must fails for one call
-      // preorder[index] means call with next value;
-      root->left = buildBST(preorder, index,  min, key, n);
-      root->right = buildBST(preorder, index,  key, max, n);
-    }
+ 
+    // Here 2 call but 1 call is run because condition must fails for one call
+    root->left = buildBST(preorder, index,  min, key, n);
+    root->right = buildBST(preorder, index,  key, max, n);
+  
 
   }
 
