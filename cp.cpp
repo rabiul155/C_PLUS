@@ -71,7 +71,13 @@ void solve() {
   }
 
   if(k%2 == 1){
-    maxSum+= mx;
+    if(mx >= 0){
+      maxSum+= mx;
+    }else{
+      if(l == 0 && r == n-1){
+        maxSum+= mx;
+      }
+    }
   }
 
   cout << maxSum << endl;
