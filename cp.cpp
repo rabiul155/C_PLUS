@@ -2,43 +2,81 @@
 #define ll long long
 using namespace std;
 
+tuple<ll , ll , ll> maxSubArray(vector<ll>& arr) {
+    ll currentSum = 0;
+    ll maxSum = 0;
+    int l = 0;
+    int r = 0;
+    int index = 0;
+
+    for(int i = 0; i<arr.size(); i++) {
+        currentSum += arr[i];
+
+        if (currentSum > maxSum){
+            maxSum = currentSum;
+            l = index;
+            r = i;
+
+        }
+
+        if (currentSum < 0){
+            currentSum = 0;
+            index = i+1;
+        }
+
+    }
+    return {l,r, maxSum};
+}
+
 
 void solve() {
-	int n;
+	ll n, k;
+  cin >> n >> k;
+  vector<ll> a(n);
+  vector<ll> b(n);
 
-	cin >> n;
-	vector<int> arr(2*n);
+  for(auto &x : a){
+    cin >> x;
+  } 
 
-	for(auto &x : arr) cin >> x;
+  for(auto &x : b){
+    cin >> x;
+  } 
 
-	map<int, int> mp;
-	for(auto &x : arr){
-		mp[x]++;
-	} 
+  ll m = INT_MIN;
 
-	int a = n;
-	int ans = 0;
+  for(auto x : a){
+    if(x > m){
+      m = x;
+    }
+  }
 
-	while(a>0){
-		for(auto &x : mp){
-			
-	}
+  if(m <= 0){
+    cout << m << endl;
+    return;
+  }
 
-	}
+  ll l;
+  ll r;
+  ll maxSum;
 
-	for(auto &x : mp){
-		if(x.second%2 == 0){
-			ans = ans + 2;
-			
-		}else{
-			ans++;
-		}
-	}
+  tie(l , r, maxSum) = maxSubArray(a);
 
-	cout << ans << endl;
+  ll mx = 0;
+
+  for(int i = l; i<= r; i++){
+    if(b[i]>mx){
+      mx = b[i];
+    }
+  }
+
+  if(k%2 == 1){
+    maxSum+= mx;
+  }
+
+  cout << maxSum << endl;
 
 
-    
 }
 
 int main() {
