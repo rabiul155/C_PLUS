@@ -2,30 +2,24 @@
 #define ll long long
 using namespace std;
 
-tuple<ll , ll , ll> maxSubArray(vector<ll>& arr) {
+ll maxSubArray(vector<ll>& arr) {
     ll currentSum = 0;
     ll maxSum = 0;
-    int l = 0;
-    int r = 0;
-    int index = 0;
 
     for(int i = 0; i<arr.size(); i++) {
         currentSum += arr[i];
 
         if (currentSum > maxSum){
             maxSum = currentSum;
-            l = index;
-            r = i;
 
         }
 
         if (currentSum < 0){
             currentSum = 0;
-            index = i+1;
         }
 
     }
-    return {l,r, maxSum};
+    return maxSum;
 }
 
 
@@ -35,50 +29,45 @@ void solve() {
   vector<ll> a(n);
   vector<ll> b(n);
 
+  ll mxA = INT_MIN;
+
   for(auto &x : a){
     cin >> x;
-  } 
-
-  for(auto &x : b){
-    cin >> x;
-  } 
-
-  ll m = INT_MIN;
-
-  for(auto x : a){
-    if(x > m){
-      m = x;
+    if(x > mxA){
+      mxA = x;
     }
-  }
+  } 
+  pair<ll, ll> mxB = {-1, INT_MIN};
+  for(int i = 0; i<n; i++){
+    cin >> b[i];
+    if(b[i]> mxB.second){
+      mxB.first = i;
+      mxB.second = b[i];
+    }
+  } 
 
-  if(m <= 0){
-    cout << m << endl;
+  if(mxA <= 0){
+
+    if(k%2 == 0){
+      cout << mxA << endl;
+    }else{
+      ll mx = INT_MIN;
+      for(int i = 0; i<n; i++){
+        ll sum = a[i] + b[i];
+        if(sum>mx){
+          mx = sum;
+        }
+      }
+      cout << mx << endl;
+    }
     return;
   }
 
-  ll l;
-  ll r;
-  ll maxSum;
-
-  tie(l , r, maxSum) = maxSubArray(a);
-
-  ll mx = 0;
-
-  for(int i = l; i<= r; i++){
-    if(b[i]>mx){
-      mx = b[i];
-    }
-  }
-
   if(k%2 == 1){
-    if(mx >= 0){
-      maxSum+= mx;
-    }else{
-      if(l == 0 && r == n-1){
-        maxSum+= mx;
-      }
-    }
+    a[mxB.first] += mxB.second;
   }
+
+  ll maxSum = maxSubArray(a);
 
   cout << maxSum << endl;
 

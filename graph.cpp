@@ -3,12 +3,13 @@ using namespace std;
 
 class Graph{
   int V;
-  list<int> *l;
+  list<int> *l; // int *arr;
  
   public:
-  Graph(int v){
-    this->V = v;
+  Graph(int V){
+    this->V = V;
     l = new list<int> [V];
+    // arr = new int[V];
   }
 
   void addEdge(int u, int v){
@@ -18,9 +19,9 @@ class Graph{
 
   void printAdjList (){
     for(int i = 0; i<V; i++){
-      cout << "vertex " << i << " : ";
-      for(int neibor : l[i]){
-        cout << neibor << " " ;
+      cout << "vertex " << i << " : edge -> ";
+      for(int edge : l[i]){
+        cout << edge << " " ;
       }
 
       cout << endl;
