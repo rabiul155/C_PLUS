@@ -17,30 +17,20 @@ class Graph{
     l[v].push_back(u);
   }
 
-  void bfs (){
-    queue<int>Q;
-    vector<bool> vis(V,false);
-
-    Q.push(0);
-    vis[0] = true;
-
-    while(!Q.empty()){
-      int u = Q.front();
-
-      Q.pop();
-
-      cout << u << " ";
-
-      for(int v : l[u]){
-        if(!vis[v]){
-          Q.push(v);
-          vis[v] = true;
-        }
+  void dfsHelper(int u , vector<bool> &vis){
+    cout << u << " ";
+    vis[u] = true;
+    for(auto v : l[u]){
+      if(!vis[v]){
+        dfsHelper(v, vis);
       }
-
     }
+  }
 
-    cout << endl;
+  void dfs (){
+    int u = 0;
+    vector<bool> vis(V, false);
+    dfsHelper(u, vis);
   }
 
 };
@@ -55,7 +45,7 @@ int main(){
   g.addEdge(1,3);
   g.addEdge(2,4);
 
-  g.bfs();
+  g.dfs();
 
   return 0;
 }
