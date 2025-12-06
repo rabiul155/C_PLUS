@@ -17,6 +17,29 @@ class Graph{
     l[v].push_back(u);
   }
 
+  bool detectCycleBFS(pair<int, int> u, vector<bool> &vis){
+    queue<pair<int , int>>Q;
+    Q.push(u);
+    vis[u.first] = true;
+
+    while(!Q.empty()){
+      pair<int , int> pr = Q.front();
+      Q.pop();
+
+      for(int v : l[pr.first]){
+        if(!vis[v]){
+          Q.push({v, pr.first});
+        }else{
+          if(v != pr.second){
+            return true;
+          }
+        }
+      }
+    }
+
+    return false;
+  }
+
   bool detectCycleDFS(int u, int par, vector<bool> &vis){
     vis[u] = true;
 
@@ -35,10 +58,17 @@ class Graph{
 
   bool detectCycle(){
     vector<bool> vis(V,false);
+    // Detect cycle DFS
+    // for(int i = 0; i<V; i++){
+    //   if(!vis[i]){
+    //    return detectCycleDFS(0,-1, vis);
+    //   }
+    // }
 
-    for(int i = 0; i<V; i++){
+    //Detect cycle BFS
+     for(int i = 0; i<V; i++){
       if(!vis[i]){
-       return detectCycleDFS(0,-1, vis);
+       return detectCycleBFS({i, -1}, vis);
       }
     }
   }
